@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AC Maintenance Service</title>
+    <script>
+        function calculateServiceCharge() {
+            const customerName = document.getElementById("customerName").value;
+            const acType = document.getElementById("acType").value;
+            const serviceType = document.getElementById("serviceType").value;
+            const email = document.getElementById("email").value;
+            const yearlyMaintenance = document.getElementById("yearlyMaintenance").checked;
+
+            let serviceCharge = 0;
+            switch (serviceType) {
+                case "Cleaning":
+                    serviceCharge = 500;
+                    break;
+                case "Repair":
+                    serviceCharge = 1000;
+                    break;
+                case "Gas Refill":
+                    serviceCharge = 1500;
+                    break;
+            }
+
+            if (yearlyMaintenance) {
+                serviceCharge += 1000;
+            }
+
+            const result = document.getElementById("result");
+            if (yearlyMaintenance) {
+                result.innerHTML = `Hello ${customerName}, your service appointment for ${acType} AC ${serviceType} with yearly maintenance will be sent to your email ID ${email} and the estimated service charge will be Rs ${serviceCharge}`;
+            } else {
+                result.innerHTML = `Hello ${customerName}, your service appointment for ${acType} AC ${serviceType} without yearly maintenance will be sent to your email ID ${email} and the estimated service charge will be Rs ${serviceCharge}`;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>AC Maintenance Service</h1>
+    <form onsubmit="event.preventDefault(); calculateServiceCharge();">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" placeholder="Enter your name" required><br>
+
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female" required>
+        <label for="female">Female</label><br>
+
+        <label for="mobileNumber">Mobile Number</label>
+        <input type="tel" id="mobileNumber" placeholder="Enter your mobile number" pattern="^[789]\d{9}$" required><br>
+
+        <label for="email">Email ID</label>
+        <input type="email" id="email" placeholder="Enter your email ID" required><br>
+
+        <label for="address">Address</label>
+        <textarea id="address" rows="5" cols="25" placeholder="Enter your address" required></textarea><br>
+
+        <label for="acType">AC Type</label>
+        <input list="acTypes" id="acType" placeholder="Select AC Type" required>
+        <datalist id="acTypes">
+            <option value="Split">
+            <option value="Window">
+            <option value="Centralized">
+            <option value="Portable">
+        </datalist><br>
+
+        <label for="serviceType">Service Type</label>
+        <select id="serviceType" required>
+            <option value="Cleaning">Cleaning</option>
+            <option value="Repair">Repair</option>
+            <option value="Gas Refill">Gas Refill</option>
+        </select><br>
+
+        <label for="dateOfAppointment">Date Of Appointment</label>
+        <input type="date" id="dateOfAppointment" required><br>
+
+        <input type="checkbox" id="yearlyMaintenance" value="yes">
+        <label for="yearlyMaintenance">Select if required</label><br>
+
+        <label for="duration">Duration in months from previous service</label>
+        <input type="range" id="duration" min="0" max="6" step="1" title="0 to 6 Months"><br>
+
+        <input type="submit" value="Submit">
+        <input type="reset" value="Clear">
+    </form>
+
+    <div id="result"></div>
+</body>
+
+</html>
+
